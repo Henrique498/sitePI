@@ -171,58 +171,40 @@ export function AboutPage() {
         </div>
       </div>
 
-      {/* Founders Section */}
+      {/* Equipe de Apresentação Section */}
       <div className="bg-muted rounded-3xl p-8 lg:p-12">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-14 h-14 bg-petblue/10 rounded-xl mb-4">
             <Users className="w-7 h-7 text-petblue" />
           </div>
-          <h2 className="text-3xl font-bold mb-4">Nossos Fundadores</h2>
+          <h2 className="text-3xl font-bold mb-4">Equipe de Apresentação</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            O PETCONNECTTA foi criado por estudantes universitários apaixonados
-            por causas sociais e bem-estar animal.
+            O PETCONNECTTA foi desenvolvido e será apresentado por estudantes
+            dedicados à causa do bem-estar animal.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            {
-              name: "Ana Silva",
-              role: "Co-fundadora & CEO",
-              description:
-                "Estudante de Medicina Veterinária, apaixonada por cães especiais.",
-              color: "petpink",
-            },
-            {
-              name: "Pedro Santos",
-              role: "Co-fundador & CTO",
-              description:
-                "Estudante de Ciência da Computação, desenvolvedor da plataforma.",
-              color: "petblue",
-            },
-            {
-              name: "Marina Costa",
-              role: "Co-fundadora & COO",
-              description:
-                "Estudante de Administração, responsável pelas parcerias com ONGs.",
-              color: "petgreen",
-            },
-          ].map((founder, index) => (
-            <Card key={index} className="text-center overflow-hidden">
-              <div className={`h-2 bg-${founder.color}`} />
+            { name: "Ana Júlia", color: "petpink" },
+            { name: "Ana Clara", color: "petblue" },
+            { name: "Kaique Silva", color: "petgreen" },
+            { name: "Kawany Barreto", color: "petorange" },
+            { name: "Julia Barreto", color: "petpink" },
+            { name: "Pedro Arantes", color: "petblue" },
+          ].map((member, index) => (
+            <Card
+              key={index}
+              className="text-center overflow-hidden hover-lift"
+            >
+              <div className={`h-2 bg-${member.color}`} />
               <CardContent className="p-6">
                 <div
-                  className={`w-24 h-24 mx-auto mb-4 bg-${founder.color}/10 rounded-full flex items-center justify-center`}
+                  className={`w-20 h-20 mx-auto mb-4 bg-${member.color}/10 rounded-full flex items-center justify-center`}
                 >
-                  <Users className={`w-10 h-10 text-${founder.color}`} />
+                  <Users className={`w-8 h-8 text-${member.color}`} />
                 </div>
-                <h3 className="font-bold text-lg">{founder.name}</h3>
-                <p className={`text-sm text-${founder.color} font-medium mb-3`}>
-                  {founder.role}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {founder.description}
-                </p>
+                <h3 className="font-bold text-xl">{member.name}</h3>
               </CardContent>
             </Card>
           ))}
@@ -230,8 +212,7 @@ export function AboutPage() {
 
         <div className="mt-12 text-center">
           <p className="text-muted-foreground">
-            Junte-se a nós nessa missão de transformar vidas! Seja um voluntário
-            ou apoiador do PETCONNECTTA.
+            Junte-se a nós nessa missão de transformar vidas!
           </p>
         </div>
       </div>
