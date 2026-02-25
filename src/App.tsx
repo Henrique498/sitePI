@@ -1,35 +1,41 @@
-import { useState, useEffect } from 'react';
-import { AuthProvider, useAuth } from '@/hooks/useAuth';
-import { ThemeProvider } from '@/hooks/useTheme';
-import { useNotifications } from '@/hooks/useNotifications';
-import { useChatbot } from '@/hooks/useChatbot';
-import { Navigation } from '@/components/Navigation';
-import { NotificationPanel } from '@/components/NotificationPanel';
-import { Chatbot } from '@/components/Chatbot';
-import { AuthPage } from '@/pages/AuthPage';
-import { HomePage } from '@/pages/HomePage';
-import { AdoptionPage } from '@/pages/AdoptionPage';
-import { FavoritesPage } from '@/pages/FavoritesPage';
-import { LocationsPage } from '@/pages/LocationsPage';
-import { AboutPage } from '@/pages/AboutPage';
-import { ContactPage } from '@/pages/ContactPage';
-import { Toaster } from '@/components/ui/sonner';
-import { toast } from 'sonner';
+import { useState, useEffect } from "react";
+import { AuthProvider, useAuth } from "@/hooks/useAuth";
+import { ThemeProvider } from "@/hooks/useTheme";
+import { useNotifications } from "@/hooks/useNotifications";
+import { useChatbot } from "@/hooks/useChatbot";
+import { Navigation } from "@/components/Navigation";
+import { NotificationPanel } from "@/components/NotificationPanel";
+import { Chatbot } from "@/components/Chatbot";
+import { AuthPage } from "@/pages/AuthPage";
+import { HomePage } from "@/pages/HomePage";
+import { AdoptionPage } from "@/pages/AdoptionPage";
+import { FavoritesPage } from "@/pages/FavoritesPage";
+import { LocationsPage } from "@/pages/LocationsPage";
+import { AboutPage } from "@/pages/AboutPage";
+import { ContactPage } from "@/pages/ContactPage";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
-type Page = 'home' | 'adoption' | 'favorites' | 'locations' | 'about' | 'contact';
+type Page =
+  | "home"
+  | "adoption"
+  | "favorites"
+  | "locations"
+  | "about"
+  | "contact";
 
 function AppContent() {
   const { isAuthenticated } = useAuth();
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentPage, setCurrentPage] = useState<Page>("home");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  
+
   const {
     notifications,
     unreadCount,
     addNotification,
     markAsRead,
     removeNotification,
-    clearAll
+    clearAll,
   } = useNotifications();
 
   const {
@@ -38,24 +44,24 @@ function AppContent() {
     sendMessage,
     toggleChat,
     closeChat,
-    clearMessages
+    clearMessages,
   } = useChatbot();
 
   // Welcome notification on first login
   useEffect(() => {
     if (isAuthenticated) {
-      const hasSeenWelcome = sessionStorage.getItem('petconectta_welcome');
+      const hasSeenWelcome = sessionStorage.getItem("petconnectta_welcome");
       if (!hasSeenWelcome) {
         setTimeout(() => {
           addNotification(
-            'Bem-vindo ao PETCONECTTA!',
-            'Estamos felizes em tê-lo aqui. Explore nossos cães disponíveis para adoção.',
-            'success'
+            "Bem-vindo ao PETCONNECTTA!",
+            "Estamos felizes em tê-lo aqui. Explore nossos cães disponíveis para adoção.",
+            "success",
           );
-          toast.success('Bem-vindo ao PETCONECTTA!', {
-            description: 'Explore nossos cães disponíveis para adoção.'
+          toast.success("Bem-vindo ao PETCONNECTTA!", {
+            description: "Explore nossos cães disponíveis para adoção.",
           });
-          sessionStorage.setItem('petconectta_welcome', 'true');
+          sessionStorage.setItem("petconnectta_welcome", "true");
         }, 1000);
       }
     }
@@ -69,12 +75,21 @@ function AppContent() {
       const random = Math.random();
       if (random < 0.1) {
         const messages = [
-          { title: 'Novo cachorro disponível!', msg: 'Um novo amigo acabou de chegar na nossa plataforma.' },
-          { title: 'Dica de cuidado', msg: 'Cães especiais precisam de atenção redobrada. Saiba mais!' },
-          { title: 'ONG próxima de você', msg: 'Tem uma ONG parceira na sua cidade. Confira!' }
+          {
+            title: "Novo cachorro disponível!",
+            msg: "Um novo amigo acabou de chegar na nossa plataforma.",
+          },
+          {
+            title: "Dica de cuidado",
+            msg: "Cães especiais precisam de atenção redobrada. Saiba mais!",
+          },
+          {
+            title: "ONG próxima de você",
+            msg: "Tem uma ONG parceira na sua cidade. Confira!",
+          },
         ];
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        addNotification(randomMsg.title, randomMsg.msg, 'info');
+        addNotification(randomMsg.title, randomMsg.msg, "info");
       }
     }, 60000); // Check every minute
 
@@ -83,22 +98,22 @@ function AppContent() {
 
   const handlePageChange = (page: string) => {
     setCurrentPage(page as Page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'home':
+      case "home":
         return <HomePage onPageChange={handlePageChange} />;
-      case 'adoption':
+      case "adoption":
         return <AdoptionPage />;
-      case 'favorites':
+      case "favorites":
         return <FavoritesPage onPageChange={handlePageChange} />;
-      case 'locations':
+      case "locations":
         return <LocationsPage />;
-      case 'about':
+      case "about":
         return <AboutPage />;
-      case 'contact':
+      case "contact":
         return <ContactPage />;
       default:
         return <HomePage onPageChange={handlePageChange} />;
@@ -123,10 +138,8 @@ function AppContent() {
           notificationCount={unreadCount}
           onOpenNotifications={() => setNotificationsOpen(true)}
         />
-        
-        <main className="min-h-[calc(100vh-64px)]">
-          {renderPage()}
-        </main>
+
+        <main className="min-h-[calc(100vh-64px)]">{renderPage()}</main>
 
         {/* Notification Panel */}
         <NotificationPanel

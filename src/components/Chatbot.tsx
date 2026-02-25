@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { MessageCircle, X, Send, Bot, Trash2 } from 'lucide-react';
-import type { ChatMessage } from '@/types';
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { MessageCircle, X, Send, Bot, Trash2 } from "lucide-react";
+import type { ChatMessage } from "@/types";
 
 interface ChatbotProps {
   isOpen: boolean;
@@ -14,8 +14,15 @@ interface ChatbotProps {
   onClear: () => void;
 }
 
-export function Chatbot({ isOpen, messages, onToggle, onClose, onSendMessage, onClear }: ChatbotProps) {
-  const [inputText, setInputText] = useState('');
+export function Chatbot({
+  isOpen,
+  messages,
+  onToggle,
+  onClose,
+  onSendMessage,
+  onClear,
+}: ChatbotProps) {
+  const [inputText, setInputText] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,12 +34,12 @@ export function Chatbot({ isOpen, messages, onToggle, onClose, onSendMessage, on
   const handleSend = () => {
     if (inputText.trim()) {
       onSendMessage(inputText.trim());
-      setInputText('');
+      setInputText("");
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -58,7 +65,7 @@ export function Chatbot({ isOpen, messages, onToggle, onClose, onSendMessage, on
             <Bot className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="font-bold text-white">Assistente PETCONECTTA</h3>
+            <h3 className="font-bold text-white">Assistente PETCONNECTTA</h3>
             <p className="text-xs text-white/80">Sempre online para ajudar</p>
           </div>
         </div>
@@ -85,13 +92,13 @@ export function Chatbot({ isOpen, messages, onToggle, onClose, onSendMessage, on
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+              className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
             >
               <div
                 className={`max-w-[80%] p-3 rounded-2xl text-sm whitespace-pre-line ${
                   message.isUser
-                    ? 'bg-petpink text-white rounded-br-md'
-                    : 'bg-muted text-foreground rounded-bl-md'
+                    ? "bg-petpink text-white rounded-br-md"
+                    : "bg-muted text-foreground rounded-bl-md"
                 }`}
               >
                 {message.text}

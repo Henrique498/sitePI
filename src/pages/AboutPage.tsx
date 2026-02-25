@@ -1,5 +1,12 @@
-import { Heart, Target, Sparkles, Users, PawPrint, Accessibility } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  Heart,
+  Target,
+  Sparkles,
+  Users,
+  PawPrint,
+  Accessibility,
+} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function AboutPage() {
   return (
@@ -10,10 +17,10 @@ export function AboutPage() {
           <Heart className="w-10 h-10 text-white" />
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-          Sobre o <span className="text-gradient">PETCONECTTA</span>
+          Sobre o <span className="text-gradient">PETCONNECTTA</span>
         </h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-          Conectando corações a patinhas. Uma plataforma dedicada a transformar 
+          Conectando corações a patinhas. Uma plataforma dedicada a transformar
           vidas, tanto de cães quanto de pessoas, através da adoção responsável.
         </p>
       </div>
@@ -28,9 +35,10 @@ export function AboutPage() {
             </div>
             <h2 className="text-2xl font-bold mb-4">Nossa Missão</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Conectar pessoas amorosas a cães que precisam de um lar, com foco especial 
-              em animais com deficiência. Queremos reduzir o número de cães abandonados 
-              e promover a adoção responsável como alternativa à compra.
+              Conectar pessoas amorosas a cães que precisam de um lar, com foco
+              especial em animais com deficiência. Queremos reduzir o número de
+              cães abandonados e promover a adoção responsável como alternativa
+              à compra.
             </p>
           </CardContent>
         </Card>
@@ -43,9 +51,10 @@ export function AboutPage() {
             </div>
             <h2 className="text-2xl font-bold mb-4">Nossa Visão</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Ser a principal plataforma de adoção de cães no Brasil, reconhecida pelo 
-              compromisso com o bem-estar animal e pela inclusão de cães com necessidades 
-              especiais. Um Brasil onde todo cachorro tenha um lar amoroso.
+              Ser a principal plataforma de adoção de cães no Brasil,
+              reconhecida pelo compromisso com o bem-estar animal e pela
+              inclusão de cães com necessidades especiais. Um Brasil onde todo
+              cachorro tenha um lar amoroso.
             </p>
           </CardContent>
         </Card>
@@ -57,24 +66,29 @@ export function AboutPage() {
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-petpink/10 rounded-full mb-6">
               <PawPrint className="w-4 h-4 text-petpink" />
-              <span className="text-sm font-medium text-petpink">Nossa História</span>
+              <span className="text-sm font-medium text-petpink">
+                Nossa História
+              </span>
             </div>
             <h2 className="text-3xl font-bold mb-6">Como Tudo Começou</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                O PETCONECTTA nasceu da união de estudantes apaixonados por animais. 
-                Durante um projeto acadêmico, percebemos a dificuldade que ONGs enfrentavam 
-                para divulgar cães disponíveis para adoção, especialmente aqueles com deficiência.
+                O PETCONNECTTA nasceu da união de estudantes apaixonados por
+                animais. Durante um projeto acadêmico, percebemos a dificuldade
+                que ONGs enfrentavam para divulgar cães disponíveis para adoção,
+                especialmente aqueles com deficiência.
               </p>
               <p>
-                Decidimos criar uma plataforma que não apenas facilitasse a conexão entre 
-                adotantes e ONGs, mas que também desse visibilidade especial aos cães que 
-                muitas vezes são ignorados por causa de suas limitações físicas.
+                Decidimos criar uma plataforma que não apenas facilitasse a
+                conexão entre adotantes e ONGs, mas que também desse
+                visibilidade especial aos cães que muitas vezes são ignorados
+                por causa de suas limitações físicas.
               </p>
               <p>
-                Acreditamos que todo cachorro merece uma chance de ser feliz, independente 
-                de suas condições. Cães com deficiência são extremamente gratos e trazem 
-                uma alegria imensa para suas famílias.
+                Acreditamos que todo cachorro merece uma chance de ser feliz,
+                independente de suas condições. Cães com deficiência são
+                extremamente gratos e trazem uma alegria imensa para suas
+                famílias.
               </p>
             </div>
           </div>
@@ -114,36 +128,43 @@ export function AboutPage() {
           {[
             {
               icon: Heart,
-              title: 'Amor',
-              description: 'Acreditamos que o amor pelos animais é o que nos move',
-              color: 'petpink'
+              title: "Amor",
+              description:
+                "Acreditamos que o amor pelos animais é o que nos move",
+              color: "petpink",
             },
             {
               icon: Accessibility,
-              title: 'Inclusão',
-              description: 'Todos os cães merecem uma chance, especialmente os especiais',
-              color: 'petorange'
+              title: "Inclusão",
+              description:
+                "Todos os cães merecem uma chance, especialmente os especiais",
+              color: "petorange",
             },
             {
               icon: Target,
-              title: 'Compromisso',
-              description: 'Dedicados a encontrar o melhor lar para cada cachorro',
-              color: 'petblue'
+              title: "Compromisso",
+              description:
+                "Dedicados a encontrar o melhor lar para cada cachorro",
+              color: "petblue",
             },
             {
               icon: Sparkles,
-              title: 'Esperança',
-              description: 'Transformando vidas, uma adoção de cada vez',
-              color: 'petgreen'
-            }
+              title: "Esperança",
+              description: "Transformando vidas, uma adoção de cada vez",
+              color: "petgreen",
+            },
           ].map((value, index) => (
             <Card key={index} className="text-center hover-lift">
               <CardContent className="p-6">
-                <div className={`w-16 h-16 mx-auto mb-4 bg-${value.color}/10 rounded-xl flex items-center justify-center`}>
+                <div
+                  className={`w-16 h-16 mx-auto mb-4 bg-${value.color}/10 rounded-xl flex items-center justify-center`}
+                >
                   <value.icon className={`w-8 h-8 text-${value.color}`} />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{value.title}</h3>
-                <p className="text-sm text-muted-foreground">{value.description}</p>
+                <p className="text-sm text-muted-foreground">
+                  {value.description}
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -158,7 +179,7 @@ export function AboutPage() {
           </div>
           <h2 className="text-3xl font-bold mb-4">Nossos Fundadores</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            O PETCONECTTA foi criado por estudantes universitários apaixonados 
+            O PETCONNECTTA foi criado por estudantes universitários apaixonados
             por causas sociais e bem-estar animal.
           </p>
         </div>
@@ -166,33 +187,42 @@ export function AboutPage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
-              name: 'Ana Silva',
-              role: 'Co-fundadora & CEO',
-              description: 'Estudante de Medicina Veterinária, apaixonada por cães especiais.',
-              color: 'petpink'
+              name: "Ana Silva",
+              role: "Co-fundadora & CEO",
+              description:
+                "Estudante de Medicina Veterinária, apaixonada por cães especiais.",
+              color: "petpink",
             },
             {
-              name: 'Pedro Santos',
-              role: 'Co-fundador & CTO',
-              description: 'Estudante de Ciência da Computação, desenvolvedor da plataforma.',
-              color: 'petblue'
+              name: "Pedro Santos",
+              role: "Co-fundador & CTO",
+              description:
+                "Estudante de Ciência da Computação, desenvolvedor da plataforma.",
+              color: "petblue",
             },
             {
-              name: 'Marina Costa',
-              role: 'Co-fundadora & COO',
-              description: 'Estudante de Administração, responsável pelas parcerias com ONGs.',
-              color: 'petgreen'
-            }
+              name: "Marina Costa",
+              role: "Co-fundadora & COO",
+              description:
+                "Estudante de Administração, responsável pelas parcerias com ONGs.",
+              color: "petgreen",
+            },
           ].map((founder, index) => (
             <Card key={index} className="text-center overflow-hidden">
               <div className={`h-2 bg-${founder.color}`} />
               <CardContent className="p-6">
-                <div className={`w-24 h-24 mx-auto mb-4 bg-${founder.color}/10 rounded-full flex items-center justify-center`}>
+                <div
+                  className={`w-24 h-24 mx-auto mb-4 bg-${founder.color}/10 rounded-full flex items-center justify-center`}
+                >
                   <Users className={`w-10 h-10 text-${founder.color}`} />
                 </div>
                 <h3 className="font-bold text-lg">{founder.name}</h3>
-                <p className={`text-sm text-${founder.color} font-medium mb-3`}>{founder.role}</p>
-                <p className="text-sm text-muted-foreground">{founder.description}</p>
+                <p className={`text-sm text-${founder.color} font-medium mb-3`}>
+                  {founder.role}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {founder.description}
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -200,8 +230,8 @@ export function AboutPage() {
 
         <div className="mt-12 text-center">
           <p className="text-muted-foreground">
-            Junte-se a nós nessa missão de transformar vidas! 
-            Seja um voluntário ou apoiador do PETCONECTTA.
+            Junte-se a nós nessa missão de transformar vidas! Seja um voluntário
+            ou apoiador do PETCONNECTTA.
           </p>
         </div>
       </div>

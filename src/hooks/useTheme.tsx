@@ -20,7 +20,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("petconectta_theme") as Theme;
+      const stored = localStorage.getItem("petconnectta_theme") as Theme;
       if (stored) return stored;
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
@@ -33,7 +33,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(theme);
-    localStorage.setItem("petconectta_theme", theme);
+    localStorage.setItem("petconnectta_theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {

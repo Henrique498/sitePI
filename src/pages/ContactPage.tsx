@@ -1,17 +1,25 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent } from '@/components/ui/card';
-import { Mail, Phone, MapPin, Send, MessageSquare, Clock, CheckCircle } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  MessageSquare,
+  Clock,
+  CheckCircle,
+} from "lucide-react";
 
 export function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,19 +27,21 @@ export function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     setIsLoading(false);
     setIsSubmitted(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -46,8 +56,8 @@ export function ContactPage() {
           Entre em <span className="text-gradient">Contato</span>
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Tem dúvidas, sugestões ou quer ser um parceiro? 
-          Estamos aqui para ajudar! Preencha o formulário abaixo.
+          Tem dúvidas, sugestões ou quer ser um parceiro? Estamos aqui para
+          ajudar! Preencha o formulário abaixo.
         </p>
       </div>
 
@@ -66,11 +76,11 @@ export function ContactPage() {
                     <p className="text-sm text-muted-foreground mb-1">
                       Resposta em até 24h
                     </p>
-                    <a 
-                      href="mailto:contato@petconectta.org" 
+                    <a
+                      href="mailto:contato@petconnectta.org"
                       className="text-petblue hover:underline"
                     >
-                      contato@petconectta.org
+                      contato@petconnectta.org
                     </a>
                   </div>
                 </div>
@@ -84,8 +94,8 @@ export function ContactPage() {
                     <p className="text-sm text-muted-foreground mb-1">
                       Seg-Sex, 9h às 18h
                     </p>
-                    <a 
-                      href="tel:+5511999999999" 
+                    <a
+                      href="tel:+5511999999999"
                       className="text-petblue hover:underline"
                     >
                       (11) 99999-9999
@@ -112,7 +122,8 @@ export function ContactPage() {
                   <div>
                     <h3 className="font-semibold mb-1">Horário</h3>
                     <p className="text-sm text-muted-foreground">
-                      Segunda a Sexta<br />
+                      Segunda a Sexta
+                      <br />
                       9:00 - 18:00
                     </p>
                   </div>
@@ -127,19 +138,27 @@ export function ContactPage() {
               <h3 className="font-semibold mb-4">Perguntas Frequentes</h3>
               <div className="space-y-4 text-sm">
                 <div>
-                  <p className="font-medium text-petpink">Como adotar um cachorro?</p>
+                  <p className="font-medium text-petpink">
+                    Como adotar um cachorro?
+                  </p>
                   <p className="text-muted-foreground">
-                    Navegue na página de adoção, escolha um cachorro e clique em "Quero Adotar".
+                    Navegue na página de adoção, escolha um cachorro e clique em
+                    "Quero Adotar".
                   </p>
                 </div>
                 <div>
-                  <p className="font-medium text-petblue">A adoção é gratuita?</p>
+                  <p className="font-medium text-petblue">
+                    A adoção é gratuita?
+                  </p>
                   <p className="text-muted-foreground">
-                    Sim! A adoção é gratuita, mas algumas ONGs pedem contribuição simbólica.
+                    Sim! A adoção é gratuita, mas algumas ONGs pedem
+                    contribuição simbólica.
                   </p>
                 </div>
                 <div>
-                  <p className="font-medium text-petgreen">Posso ser voluntário?</p>
+                  <p className="font-medium text-petgreen">
+                    Posso ser voluntário?
+                  </p>
                   <p className="text-muted-foreground">
                     Sim! Entre em contato conosco para saber como ajudar.
                   </p>
@@ -234,7 +253,7 @@ export function ContactPage() {
                     className="w-full h-12 bg-gradient-to-r from-petpink to-petred hover:opacity-90 text-white font-semibold text-lg"
                   >
                     {isLoading ? (
-                      'Enviando...'
+                      "Enviando..."
                     ) : (
                       <>
                         <Send className="w-5 h-5 mr-2" />

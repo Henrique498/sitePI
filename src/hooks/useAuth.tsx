@@ -28,7 +28,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(() => {
     if (typeof window !== "undefined") {
-      const storedUser = localStorage.getItem("petconectta_user");
+      const storedUser = localStorage.getItem("petconnectta_user");
       return storedUser ? JSON.parse(storedUser) : null;
     }
     return null;
@@ -36,14 +36,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
-      return !!localStorage.getItem("petconectta_user");
+      return !!localStorage.getItem("petconnectta_user");
     }
     return false;
   });
 
   const login = async (email: string, password: string): Promise<boolean> => {
     const users: UserWithPassword[] = JSON.parse(
-      localStorage.getItem("petconectta_users") || "[]",
+      localStorage.getItem("petconnectta_users") || "[]",
     );
     const foundUser = users.find(
       (u) => u.email === email && u.password === password,
@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       setUser(userCopy as User);
       setIsAuthenticated(true);
-      localStorage.setItem("petconectta_user", JSON.stringify(userCopy));
+      localStorage.setItem("petconnectta_user", JSON.stringify(userCopy));
       return true;
     }
     return false;
@@ -69,7 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     phone?: string,
   ): Promise<boolean> => {
     const users: UserWithPassword[] = JSON.parse(
-      localStorage.getItem("petconectta_users") || "[]",
+      localStorage.getItem("petconnectta_users") || "[]",
     );
 
     if (users.find((u) => u.email === email)) {
@@ -86,14 +86,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     users.push(newUser);
-    localStorage.setItem("petconectta_users", JSON.stringify(users));
+    localStorage.setItem("petconnectta_users", JSON.stringify(users));
 
     const userCopy = { ...newUser };
     delete userCopy.password;
 
     setUser(userCopy as User);
     setIsAuthenticated(true);
-    localStorage.setItem("petconectta_user", JSON.stringify(userCopy));
+    localStorage.setItem("petconnectta_user", JSON.stringify(userCopy));
 
     return true;
   };
@@ -101,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
-    localStorage.removeItem("petconectta_user");
+    localStorage.removeItem("petconnectta_user");
   };
 
   const addToFavorites = (dogId: string) => {
@@ -111,15 +111,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const updatedUser = { ...user, favorites: updatedFavorites };
 
     setUser(updatedUser);
-    localStorage.setItem("petconectta_user", JSON.stringify(updatedUser));
+    localStorage.setItem("petconnectta_user", JSON.stringify(updatedUser));
 
     const users: UserWithPassword[] = JSON.parse(
-      localStorage.getItem("petconectta_users") || "[]",
+      localStorage.getItem("petconnectta_users") || "[]",
     );
     const userIndex = users.findIndex((u) => u.id === user.id);
     if (userIndex !== -1) {
       users[userIndex].favorites = updatedFavorites;
-      localStorage.setItem("petconectta_users", JSON.stringify(users));
+      localStorage.setItem("petconnectta_users", JSON.stringify(users));
     }
   };
 
@@ -130,15 +130,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const updatedUser = { ...user, favorites: updatedFavorites };
 
     setUser(updatedUser);
-    localStorage.setItem("petconectta_user", JSON.stringify(updatedUser));
+    localStorage.setItem("petconnectta_user", JSON.stringify(updatedUser));
 
     const users: UserWithPassword[] = JSON.parse(
-      localStorage.getItem("petconectta_users") || "[]",
+      localStorage.getItem("petconnectta_users") || "[]",
     );
     const userIndex = users.findIndex((u) => u.id === user.id);
     if (userIndex !== -1) {
       users[userIndex].favorites = updatedFavorites;
-      localStorage.setItem("petconectta_users", JSON.stringify(users));
+      localStorage.setItem("petconnectta_users", JSON.stringify(users));
     }
   };
 

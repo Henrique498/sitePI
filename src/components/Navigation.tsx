@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { useTheme } from '@/hooks/useTheme';
+import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { useTheme } from "@/hooks/useTheme";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,12 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Home,
   Search,
@@ -26,8 +22,8 @@ import {
   Moon,
   Sun,
   Menu,
-  Bell
-} from 'lucide-react';
+  Bell,
+} from "lucide-react";
 
 interface NavigationProps {
   currentPage: string;
@@ -37,15 +33,20 @@ interface NavigationProps {
 }
 
 const navItems = [
-  { id: 'home', label: 'Home', icon: Home },
-  { id: 'adoption', label: 'Adoção', icon: Search },
-  { id: 'favorites', label: 'Favoritos', icon: Heart },
-  { id: 'locations', label: 'Localizações', icon: MapPin },
-  { id: 'about', label: 'Sobre', icon: Info },
-  { id: 'contact', label: 'Contato', icon: Phone },
+  { id: "home", label: "Home", icon: Home },
+  { id: "adoption", label: "Adoção", icon: Search },
+  { id: "favorites", label: "Favoritos", icon: Heart },
+  { id: "locations", label: "Localizações", icon: MapPin },
+  { id: "about", label: "Sobre", icon: Info },
+  { id: "contact", label: "Contato", icon: Phone },
 ];
 
-export function Navigation({ currentPage, onPageChange, notificationCount, onOpenNotifications }: NavigationProps) {
+export function Navigation({
+  currentPage,
+  onPageChange,
+  notificationCount,
+  onOpenNotifications,
+}: NavigationProps) {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,16 +60,18 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <button 
-            onClick={() => onPageChange('home')}
+          <button
+            onClick={() => onPageChange("home")}
             className="flex items-center gap-3 group"
           >
-            <img 
-              src="/logo.png" 
-              alt="PETCONECTTA Logo" 
+            <img
+              src="/logo.png"
+              alt="PETCONNECTTA Logo"
               className="w-12 h-12 object-contain group-hover:scale-110 transition-transform"
             />
-            <span className="text-xl font-black bg-gradient-to-r from-petpink to-petorange bg-clip-text text-transparent hidden sm:block">PETCONECTTA</span>
+            <span className="text-xl font-black bg-gradient-to-r from-petpink to-petorange bg-clip-text text-transparent hidden sm:block">
+              PETCONNECTTA
+            </span>
           </button>
 
           {/* Desktop Navigation */}
@@ -79,8 +82,8 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
                 onClick={() => onPageChange(item.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   currentPage === item.id
-                    ? 'bg-petpink text-white'
-                    : 'text-foreground hover:bg-muted'
+                    ? "bg-petpink text-white"
+                    : "text-foreground hover:bg-muted"
                 }`}
               >
                 <item.icon className="w-4 h-4" />
@@ -109,7 +112,7 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-muted transition-colors"
             >
-              {theme === 'light' ? (
+              {theme === "light" ? (
                 <Moon className="w-5 h-5" />
               ) : (
                 <Sun className="w-5 h-5 text-petorange" />
@@ -132,12 +135,12 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => onPageChange('favorites')}>
+                  <DropdownMenuItem onClick={() => onPageChange("favorites")}>
                     <Heart className="w-4 h-4 mr-2" />
                     Meus favoritos
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={toggleTheme}>
-                    {theme === 'light' ? (
+                    {theme === "light" ? (
                       <>
                         <Moon className="w-4 h-4 mr-2" />
                         Modo escuro
@@ -150,7 +153,10 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-destructive"
+                  >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sair
                   </DropdownMenuItem>
@@ -169,12 +175,14 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
                 <div className="flex flex-col h-full">
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
-                      <img 
-                        src="/logo.png" 
-                        alt="PETCONECTTA Logo" 
+                      <img
+                        src="/logo.png"
+                        alt="PETCONNECTTA Logo"
                         className="w-12 h-12 object-contain"
                       />
-                      <span className="text-xl font-black bg-gradient-to-r from-petpink to-petorange bg-clip-text text-transparent">PETCONECTTA</span>
+                      <span className="text-xl font-black bg-gradient-to-r from-petpink to-petorange bg-clip-text text-transparent">
+                        PETCONNECTTA
+                      </span>
                     </div>
                   </div>
 
@@ -185,7 +193,9 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
                     </div>
                     <div>
                       <p className="font-semibold">{user?.name}</p>
-                      <p className="text-sm text-muted-foreground">{user?.email}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {user?.email}
+                      </p>
                     </div>
                   </div>
 
@@ -200,8 +210,8 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
                         }}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left font-medium transition-all ${
                           currentPage === item.id
-                            ? 'bg-petpink text-white'
-                            : 'hover:bg-muted'
+                            ? "bg-petpink text-white"
+                            : "hover:bg-muted"
                         }`}
                       >
                         <item.icon className="w-5 h-5" />
@@ -218,7 +228,7 @@ export function Navigation({ currentPage, onPageChange, notificationCount, onOpe
                       }}
                       className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-muted text-left"
                     >
-                      {theme === 'light' ? (
+                      {theme === "light" ? (
                         <>
                           <Moon className="w-5 h-5" />
                           Modo escuro

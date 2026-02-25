@@ -39,7 +39,7 @@ export function HomePage({ onPageChange }: HomePageProps) {
               <div className="flex justify-center lg:justify-start">
                 <img
                   src="/logo.png"
-                  alt="PETCONECTTA"
+                  alt="PETCONNECTTA"
                   className="w-32 h-32 lg:w-48 lg:h-48 object-contain animate-float drop-shadow-2xl"
                 />
               </div>
@@ -57,8 +57,8 @@ export function HomePage({ onPageChange }: HomePageProps) {
               </h1>
 
               <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
-                O PETCONECTTA conecta pessoas amorosas a cães que precisam de um
-                lar. Especialmente aqueles com deficiência, que merecem uma
+                O PETCONNECTTA conecta pessoas amorosas a cães que precisam de
+                um lar. Especialmente aqueles com deficiência, que merecem uma
                 chance especial.
               </p>
 
