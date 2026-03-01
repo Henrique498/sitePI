@@ -20,19 +20,18 @@ export function Chatbot({
   onClear,
 }: ChatbotProps) {
   const [inputValue, setInputValue] = useState("");
-  // Trocamos o scrollRef do container por uma ref para o final da lista
+  const scrollRef = useRef<HTMLDivElement>(null);
+  // Nova referência para o final das mensagens
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Função para rolar até o elemento invisível no final
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Aciona o scroll sempre que a lista de mensagens ou a abertura do chat mudar
   useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
+    // Rola o container manualmente (solução clássica)
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
+
+    // Rola suavemente para o elemento final (solução mais precisa)
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -59,7 +58,10 @@ export function Chatbot({
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+          <div
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50"
+          >
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -76,7 +78,7 @@ export function Chatbot({
                 </div>
               </div>
             ))}
-            {/* Elemento invisível que serve como âncora para o scroll */}
+            {/* Elemento vazio usado como âncora para o scroll automático */}
             <div ref={messagesEndRef} />
           </div>
 
@@ -100,15 +102,12 @@ export function Chatbot({
           </form>
         </div>
       )}
-
-      {!isOpen && (
-        <button
-          onClick={onToggle}
-          className="bg-blue-600 p-4 rounded-full shadow-lg text-white hover:scale-105 transition"
-        >
-          <MessageCircle size={28} />
-        </button>
-      )}
+      <button
+        onClick={onToggle}
+        className="bg-blue-600 p-4 rounded-full shadow-lg text-white hover:scale-105 transition"
+      >
+        <MessageCircle size={28} />
+      </button>
     </div>
   );
 }
