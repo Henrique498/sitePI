@@ -20,24 +20,25 @@ export function Chatbot({
   onClear,
 }: ChatbotProps) {
   const [inputValue, setInputValue] = useState("");
-  const scrollRef = useRef<HTMLDivElement>(null);
+  // Criamos uma ref específica para o fim da lista
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const scrollToBottom = () => {
+    // O setTimeout de 0 ou 50ms garante que o DOM já foi atualizado com a nova altura
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, 50);
+  };
+
+  // Toda vez que as mensagens mudarem ou o chat abrir, ele desce
   useEffect(() => {
-    // Adiciona um pequeno atraso para garantir que o React já renderizou a nova mensagem no DOM
-    const timer = setTimeout(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-      }
-
-      if (messagesEndRef.current) {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 100);
-
-    // Limpa o timeout para evitar vazamentos de memória
-    return () => clearTimeout(timer);
-  }, [messages]);
+    if (isOpen) {
+      scrollToBottom();
+    }
+  }, [messages, isOpen]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,10 +64,8 @@ export function Chatbot({
             </div>
           </div>
 
-          <div
-            ref={scrollRef}
-            className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50"
-          >
+          {/* Container de mensagens */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -83,7 +82,12 @@ export function Chatbot({
                 </div>
               </div>
             ))}
-            <div ref={messagesEndRef} />
+
+            {/* ELEMENTO CHAVE: Esta div invisível serve de âncora para o scroll */}
+            <div
+              ref={messagesEndRef}
+              style={{ float: "left", clear: "both" }}
+            />
           </div>
 
           <form
@@ -106,6 +110,7 @@ export function Chatbot({
           </form>
         </div>
       )}
+
       <button
         onClick={onToggle}
         className="bg-blue-600 p-4 rounded-full shadow-lg text-white hover:scale-105 transition"
