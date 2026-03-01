@@ -1,14 +1,14 @@
 import { useState, useCallback } from "react";
 import type { ChatMessage } from "@/types";
 
-// Adicionei emojis e quebras de linha duplas para parecerem tópicos claros
-const menuMessage =
-  "Como posso ajudar? Digite o número da opção:\n\n" +
-  "📍 1 - Como adotar\n" +
-  "📍 2 - Informações sobre ONGs\n" +
-  "📍 3 - Cães com deficiência\n" +
-  "📍 4 - Processo de adoção\n\n" +
-  "Ou digite sua dúvida abaixo:";
+const menuMessage = `Como posso ajudar? Digite o número da opção:
+
+📍 1 - Como adotar
+📍 2 - Informações sobre ONGs
+📍 3 - Cães com deficiência
+📍 4 - Processo de adoção
+
+Ou digite sua dúvida abaixo:`;
 
 export function useChatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -39,15 +39,13 @@ export function useChatbot() {
 
       if (input === "1")
         response =
-          '🐾 Para adotar, acesse a aba "Adoção" e escolha seu novo melhor amigo!';
+          '🐾 Para adotar, acesse a aba "Adoção" e escolha seu novo amigo!';
       if (input === "2")
-        response = '🏠 Veja as ONGs parceiras na nossa aba de "Localizações".';
+        response = '🏠 Veja as ONGs parceiras na aba "Localizações".';
       if (input === "3")
-        response =
-          "♿ Cães especiais esperam por você! Confira na vitrine de adoção.";
+        response = "♿ Cães especiais esperam por você! Confira na vitrine.";
       if (input === "4")
-        response =
-          "📝 A adoção requer preenchimento de formulário e uma breve entrevista.";
+        response = "📝 O processo requer formulário e entrevista.";
       if (input.toLowerCase().includes("ajuda")) response = menuMessage;
 
       const botMsg: ChatMessage = {
