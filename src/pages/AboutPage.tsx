@@ -111,7 +111,7 @@ export function AboutPage() {
               </div>
               <div className="aspect-square rounded-2xl overflow-hidden shadow-lg">
                 <img
-                  src="http://zukapets.com/cdn/shop/articles/cachorro.jpg?v=1715951227"
+                  src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=800"
                   alt="Cachorro para adoção"
                   className="w-full h-full object-cover"
                 />
@@ -171,6 +171,46 @@ export function AboutPage() {
         </div>
       </div>
 
+      {/* Equipe de Desenvolvimento */}
+      <div className="bg-gradient-to-b from-muted to-background rounded-3xl p-8 lg:p-12 mb-12">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-petgreen/10 rounded-xl mb-4">
+            <Sparkles className="w-7 h-7 text-petgreen" />
+          </div>
+          <h2 className="text-3xl font-bold mb-4">Equipe de Desenvolvimento</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Responsáveis pela arquitetura, código e implementação tecnológica da
+            plataforma.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[
+            { name: "Gabryel", color: "petpink" },
+            { name: "Henrique", color: "petblue" },
+            { name: "Christopher", color: "petgreen" },
+            { name: "Nicolas", color: "petorange" },
+          ].map((member, index) => (
+            <Card
+              key={index}
+              className="text-center overflow-hidden hover-lift border-t-4"
+              style={{ borderColor: `var(--${member.color})` }}
+            >
+              <CardContent className="p-6">
+                <div
+                  className={`w-20 h-20 mx-auto mb-4 bg-${member.color}/10 rounded-full flex items-center justify-center`}
+                >
+                  <Users className={`w-8 h-8 text-${member.color}`} />
+                </div>
+                <h3 className="font-bold text-xl">{member.name}</h3>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider mt-2">
+                  Developer
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
       {/* Equipe de Apresentação Section */}
       <div className="bg-muted rounded-3xl p-8 lg:p-12">
         <div className="text-center mb-12">
@@ -179,8 +219,8 @@ export function AboutPage() {
           </div>
           <h2 className="text-3xl font-bold mb-4">Equipe de Apresentação</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            O PETCONNECTTA foi desenvolvido e será apresentado por estudantes
-            dedicados à causa do bem-estar animal.
+            Estudantes dedicados que promovem a causa e apresentam o projeto à
+            comunidade.
           </p>
         </div>
 
@@ -211,8 +251,8 @@ export function AboutPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-muted-foreground">
-            Junte-se a nós nessa missão de transformar vidas!
+          <p className="text-muted-foreground font-medium italic">
+            "Juntos, transformando o destino de muitos peludinhos."
           </p>
         </div>
       </div>
