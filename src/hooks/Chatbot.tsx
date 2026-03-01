@@ -20,24 +20,16 @@ export function Chatbot({
   onClear,
 }: ChatbotProps) {
   const [inputValue, setInputValue] = useState("");
-  // Criamos uma ref específica para o fim da lista
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // FUNÇÃO DE SCROLL FORÇADO
   const scrollToBottom = () => {
-    // O setTimeout de 0 ou 50ms garante que o DOM já foi atualizado com a nova altura
-    setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
-    }, 50);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Toda vez que as mensagens mudarem ou o chat abrir, ele desce
+  // DISPARA O SCROLL SEMPRE QUE MENSAGENS MUDAREM OU ABRIR O CHAT
   useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
-    }
+    scrollToBottom();
   }, [messages, isOpen]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,50 +41,54 @@ export function Chatbot({
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end text-black">
+    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end text-black">
       {isOpen && (
-        <div className="mb-4 w-80 h-[500px] bg-white rounded-2xl shadow-2xl border flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4">
-          <div className="bg-blue-600 p-4 text-white flex justify-between items-center font-bold">
-            <span>PetConnectta Bot</span>
+        <div className="mb-4 w-80 h-[450px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4">
+          {/* Header */}
+          <div className="bg-blue-600 p-4 text-white flex justify-between items-center shrink-0">
+            <span className="font-bold">PetConnectta Bot</span>
             <div className="flex gap-2">
-              <button onClick={onClear} className="hover:text-gray-200">
-                <Trash2 size={18} />
+              <button
+                onClick={onClear}
+                className="hover:bg-blue-700 p-1 rounded"
+              >
+                <Trash2 size={16} />
               </button>
-              <button onClick={onClose} className="hover:text-gray-200">
-                <X size={20} />
+              <button
+                onClick={onClose}
+                className="hover:bg-blue-700 p-1 rounded"
+              >
+                <X size={18} />
               </button>
             </div>
           </div>
 
-          {/* Container de mensagens */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+          {/* Área de Mensagens (IMPORTANTE: h-full e overflow-y-auto) */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 min-h-0">
             {messages.map((m) => (
               <div
                 key={m.id}
                 className={`flex ${m.isUser ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] p-3 rounded-2xl text-sm whitespace-pre-wrap ${
+                  className={`max-w-[85%] p-3 rounded-2xl text-sm whitespace-pre-wrap shadow-sm ${
                     m.isUser
                       ? "bg-blue-600 text-white rounded-tr-none"
-                      : "bg-white text-gray-800 border shadow-sm rounded-tl-none"
+                      : "bg-white text-gray-800 border rounded-tl-none"
                   }`}
                 >
                   {m.text}
                 </div>
               </div>
             ))}
-
-            {/* ELEMENTO CHAVE: Esta div invisível serve de âncora para o scroll */}
-            <div
-              ref={messagesEndRef}
-              style={{ float: "left", clear: "both" }}
-            />
+            {/* ELEMENTO ÂNCORA PARA O SCROLL */}
+            <div ref={messagesEndRef} />
           </div>
 
+          {/* Input */}
           <form
             onSubmit={handleSubmit}
-            className="p-3 bg-white border-t flex gap-2"
+            className="p-3 bg-white border-t flex gap-2 shrink-0"
           >
             <input
               type="text"
