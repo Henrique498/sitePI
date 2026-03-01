@@ -20,11 +20,18 @@ export function Chatbot({
   onClear,
 }: ChatbotProps) {
   const [inputValue, setInputValue] = useState("");
-  const scrollRef = useRef<HTMLDivElement>(null);
+  // Trocamos o scrollRef do container por uma ref para o final da lista
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Função para rolar até o elemento invisível no final
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Aciona o scroll sempre que a lista de mensagens ou a abertura do chat mudar
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (isOpen) {
+      scrollToBottom();
     }
   }, [messages, isOpen]);
 
@@ -52,10 +59,7 @@ export function Chatbot({
             </div>
           </div>
 
-          <div
-            ref={scrollRef}
-            className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50"
-          >
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -72,6 +76,8 @@ export function Chatbot({
                 </div>
               </div>
             ))}
+            {/* Elemento invisível que serve como âncora para o scroll */}
+            <div ref={messagesEndRef} />
           </div>
 
           <form
@@ -94,12 +100,15 @@ export function Chatbot({
           </form>
         </div>
       )}
-      <button
-        onClick={onToggle}
-        className="bg-blue-600 p-4 rounded-full shadow-lg text-white hover:scale-105 transition"
-      >
-        <MessageCircle size={28} />
-      </button>
+
+      {!isOpen && (
+        <button
+          onClick={onToggle}
+          className="bg-blue-600 p-4 rounded-full shadow-lg text-white hover:scale-105 transition"
+        >
+          <MessageCircle size={28} />
+        </button>
+      )}
     </div>
   );
 }
