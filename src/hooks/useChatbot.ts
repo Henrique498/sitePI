@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from "react"; // useEffect removido daqui
 import type { ChatMessage } from "@/types";
 
 const menuMessage =
@@ -6,6 +6,7 @@ const menuMessage =
 
 const botResponses: Record<string, string> = {
   oi: "Olá! Bem-vindo ao PETCONNECTTA! Como posso ajudar você hoje?",
+  ola: "Olá! Bem-vindo ao PETCONNECTTA! Como posso ajudar você hoje?",
   ajuda: menuMessage,
   adotar:
     'Para adotar, navegue na aba "Adoção", escolha um cão e clique em "Quero Adotar".',
@@ -17,10 +18,9 @@ const botResponses: Record<string, string> = {
 
 function findBestResponse(message: string): string {
   const input = message.trim().toLowerCase();
-  if (input === "1") return botResponses.adotar;
+  if (input === "1" || input === "4") return botResponses.adotar;
   if (input === "2") return botResponses.ong;
   if (input === "3") return botResponses.deficiencia;
-  if (input === "4") return botResponses.adotar;
 
   for (const [key, response] of Object.entries(botResponses)) {
     if (input.includes(key)) return response;
@@ -57,18 +57,24 @@ export function useChatbot() {
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, botMsg]);
-    }, 800);
+    }, 600);
   }, []);
 
   return {
     messages,
     isOpen,
+    setIsOpen,
     sendMessage,
     toggleChat: () => setIsOpen((prev) => !prev),
     closeChat: () => setIsOpen(false),
     clearMessages: () =>
       setMessages([
-        { id: "1", text: menuMessage, isUser: false, timestamp: new Date() },
+        {
+          id: "1",
+          text: "Conversa reiniciada.\n\n" + menuMessage,
+          isUser: false,
+          timestamp: new Date(),
+        },
       ]),
   };
 }
