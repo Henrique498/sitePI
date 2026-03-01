@@ -140,7 +140,8 @@ export const dogs: Dog[] = [
     disabilityType: "Cegueira total",
     ongId: "ong3",
     ongName: "Cão Sem Dono",
-    image: "https://images.unsplash.com/photo-1581888227599-779811939961?w=800",
+    image:
+      "https://images.unsplash.com/photo-1581888227599-779811939961?q=80&w=1000&auto=format&fit=crop",
     description:
       "Bolinha é um idoso muito especial. Mesmo cego, se adapta muito bem a novos ambientes. Muito calmo e amoroso.",
     gender: "macho",
