@@ -22,7 +22,6 @@ export function Chatbot({
   const [inputValue, setInputValue] = useState("");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Função que força o scroll para o final absoluto
   const scrollToBottom = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop =
@@ -32,10 +31,8 @@ export function Chatbot({
 
   useLayoutEffect(() => {
     if (isOpen) {
-      // Executa imediatamente e 100ms depois para garantir que o DOM atualizou
       scrollToBottom();
-      const timer = setTimeout(scrollToBottom, 100);
-      return () => clearTimeout(timer);
+      setTimeout(scrollToBottom, 50);
     }
   }, [messages, isOpen]);
 
@@ -48,20 +45,20 @@ export function Chatbot({
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end text-black">
+    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end">
       {isOpen && (
-        <div className="mb-4 w-[380px] h-[550px] bg-white rounded-2xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden animate-slide-up">
-          {/* Header Rosa (Igual à imagem) */}
+        <div className="mb-4 w-[380px] h-[550px] bg-white rounded-[20px] shadow-2xl border border-gray-100 flex flex-col overflow-hidden animate-slide-up">
+          {/* HEADER ROSA FIEL */}
           <div className="bg-[#fc0288] p-4 text-white flex justify-between items-center shrink-0">
             <div className="flex items-center gap-3">
               <div className="bg-white/20 p-2 rounded-full">
-                <Bot size={24} />
+                <Bot size={22} className="text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-sm leading-none">
+                <span className="font-bold text-[14px] leading-tight">
                   Assistente PETCONNECTTA
                 </span>
-                <span className="text-[10px] opacity-80 mt-1">
+                <span className="text-[11px] opacity-90">
                   Sempre online para ajudar
                 </span>
               </div>
@@ -69,20 +66,20 @@ export function Chatbot({
             <div className="flex gap-1">
               <button
                 onClick={onClear}
-                className="hover:bg-white/20 p-1.5 rounded-md transition-colors"
+                className="hover:bg-white/10 p-1.5 rounded-lg transition-colors"
               >
-                <Trash2 size={16} />
+                <Trash2 size={18} />
               </button>
               <button
                 onClick={onClose}
-                className="hover:bg-white/20 p-1.5 rounded-md transition-colors"
+                className="hover:bg-white/10 p-1.5 rounded-lg transition-colors"
               >
-                <X size={18} />
+                <X size={20} />
               </button>
             </div>
           </div>
 
-          {/* Área de Mensagens com scroll forçado */}
+          {/* ÁREA DE MENSAGENS COM FORMATO CIRCULAR PARA O USUÁRIO */}
           <div
             ref={scrollContainerRef}
             className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#f8f9fa] flex flex-col"
@@ -93,10 +90,10 @@ export function Chatbot({
                 className={`flex ${m.isUser ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] p-3 rounded-2xl text-[13px] leading-relaxed shadow-sm ${
+                  className={`max-w-[85%] p-3 text-[14px] leading-relaxed shadow-sm ${
                     m.isUser
-                      ? "bg-[#fc0288] text-white rounded-br-none"
-                      : "bg-white text-gray-700 border border-gray-100 rounded-tl-none"
+                      ? "bg-[#fc0288] text-white rounded-[25px] px-5 py-2 min-w-[40px] text-center" // Formato redondo da imagem
+                      : "bg-white text-gray-700 border border-gray-100 rounded-[18px] rounded-tl-none" // Formato do Bot
                   }`}
                 >
                   {m.text}
@@ -105,34 +102,34 @@ export function Chatbot({
             ))}
           </div>
 
-          {/* Input Rosa */}
+          {/* INPUT AREA */}
           <form
             onSubmit={handleSubmit}
-            className="p-3 bg-white border-t flex gap-2 shrink-0"
+            className="p-4 bg-white border-t flex gap-2 shrink-0"
           >
             <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Digite sua dúvida..."
-              className="flex-1 bg-gray-100 rounded-lg px-4 py-2.5 text-sm outline-none border-none focus:ring-2 focus:ring-[#fc0288]/30 text-black"
+              className="flex-1 bg-gray-100 rounded-full px-5 py-2.5 text-sm outline-none border-none focus:ring-1 focus:ring-[#fc0288]/50 text-black"
             />
             <button
               type="submit"
-              className="bg-[#fc0288] p-2.5 rounded-lg text-white hover:brightness-110 transition-all active:scale-95 shadow-md"
+              className="bg-[#fc0288] p-2.5 rounded-full text-white hover:brightness-110 active:scale-90 transition-all shadow-md"
             >
-              <Send size={18} />
+              <Send size={20} />
             </button>
           </form>
         </div>
       )}
 
-      {/* Botão flutuante Rosa */}
+      {/* BOTÃO FLUTUANTE */}
       <button
         onClick={onToggle}
         className="bg-[#fc0288] p-4 rounded-full shadow-lg text-white hover:scale-105 active:scale-95 transition-all duration-300"
       >
-        <MessageCircle size={32} />
+        <MessageCircle size={30} />
       </button>
     </div>
   );
