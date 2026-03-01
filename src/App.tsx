@@ -1,11 +1,11 @@
-import { useState } from "react"; // Removido useEffect daqui
+import { useState } from "react";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { useNotifications } from "@/hooks/useNotifications";
-import { useChatbot } from "@/hooks/useChatbot";
+import { useChatbot } from "@/hooks/useChatbot"; // Importa a LÓGICA
 import { Navigation } from "@/components/Navigation";
 import { NotificationPanel } from "@/components/NotificationPanel";
-import { Chatbot } from "@/components/Chatbot";
+import { Chatbot } from "@/hooks/Chatbot"; // AJUSTE AQUI: Se o seu componente visual com o scroll está na pasta hooks, aponte para lá
 import { AuthPage } from "@/pages/AuthPage";
 import { HomePage } from "@/pages/HomePage";
 import { AdoptionPage } from "@/pages/AdoptionPage";
@@ -27,6 +27,7 @@ function AppContent() {
   const { isAuthenticated } = useAuth();
   const [currentPage, setCurrentPage] = useState<Page>("home");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+
   const {
     notifications,
     unreadCount,
@@ -87,6 +88,7 @@ function AppContent() {
           onOpenNotifications={() => setNotificationsOpen(true)}
         />
         <main className="min-h-[calc(100vh-64px)]">{renderPage()}</main>
+
         <NotificationPanel
           isOpen={notificationsOpen}
           onClose={() => setNotificationsOpen(false)}
@@ -95,6 +97,8 @@ function AppContent() {
           onRemove={removeNotification}
           onClearAll={clearAll}
         />
+
+        {/* O Componente Chatbot com a correção de scroll que aplicamos */}
         <Chatbot
           isOpen={chatbotOpen}
           messages={messages}
@@ -103,6 +107,7 @@ function AppContent() {
           onSendMessage={sendMessage}
           onClear={clearMessages}
         />
+
         <Toaster position="top-right" richColors />
       </div>
     </ThemeProvider>
