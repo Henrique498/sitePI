@@ -79,7 +79,7 @@ export function Chatbot({
             </div>
           </div>
 
-          {/* ÁREA DE MENSAGENS COM FORMATO CIRCULAR PARA O USUÁRIO */}
+          {/* ÁREA DE MENSAGENS COM WHITESPACE-PRE-WRAP ADICIONADO */}
           <div
             ref={scrollContainerRef}
             className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#f8f9fa] flex flex-col"
@@ -90,10 +90,10 @@ export function Chatbot({
                 className={`flex ${m.isUser ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] p-3 text-[14px] leading-relaxed shadow-sm ${
+                  className={`max-w-[85%] p-3 text-[14px] leading-relaxed shadow-sm whitespace-pre-wrap ${
                     m.isUser
-                      ? "bg-[#fc0288] text-white rounded-[25px] px-5 py-2 min-w-[40px] text-center" // Formato redondo da imagem
-                      : "bg-white text-gray-700 border border-gray-100 rounded-[18px] rounded-tl-none" // Formato do Bot
+                      ? "bg-[#fc0288] text-white rounded-[25px] px-5 py-2 min-w-[40px] text-center"
+                      : "bg-white text-gray-700 border border-gray-100 rounded-[18px] rounded-tl-none"
                   }`}
                 >
                   {m.text}
