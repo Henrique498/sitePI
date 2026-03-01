@@ -21,18 +21,23 @@ export function Chatbot({
 }: ChatbotProps) {
   const [inputValue, setInputValue] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
-  // Nova referência para o final das mensagens
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Rola o container manualmente (solução clássica)
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    // Adiciona um pequeno atraso para garantir que o React já renderizou a nova mensagem no DOM
+    const timer = setTimeout(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }
 
-    // Rola suavemente para o elemento final (solução mais precisa)
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isOpen]);
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+
+    // Limpa o timeout para evitar vazamentos de memória
+    return () => clearTimeout(timer);
+  }, [messages]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +83,6 @@ export function Chatbot({
                 </div>
               </div>
             ))}
-            {/* Elemento vazio usado como âncora para o scroll automático */}
             <div ref={messagesEndRef} />
           </div>
 
