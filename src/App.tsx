@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react"; // Removido useEffect daqui
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { useNotifications } from "@/hooks/useNotifications";
@@ -14,7 +14,6 @@ import { LocationsPage } from "@/pages/LocationsPage";
 import { AboutPage } from "@/pages/AboutPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { Toaster } from "@/components/ui/sonner";
-import { toast } from "sonner";
 
 type Page =
   | "home"
@@ -28,11 +27,9 @@ function AppContent() {
   const { isAuthenticated } = useAuth();
   const [currentPage, setCurrentPage] = useState<Page>("home");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-
   const {
     notifications,
     unreadCount,
-    addNotification,
     markAsRead,
     removeNotification,
     clearAll,
@@ -47,68 +44,20 @@ function AppContent() {
     clearMessages,
   } = useChatbot();
 
-  // Welcome notification on first login
-  useEffect(() => {
-    if (isAuthenticated) {
-      const hasSeenWelcome = sessionStorage.getItem("petconnectta_welcome");
-      if (!hasSeenWelcome) {
-        setTimeout(() => {
-          addNotification(
-            "Bem-vindo ao PETCONNECTTA!",
-            "Estamos felizes em tê-lo aqui. Explore nossos cães disponíveis para adoção.",
-            "success",
-          );
-          toast.success("Bem-vindo ao PETCONNECTTA!", {
-            description: "Explore nossos cães disponíveis para adoção.",
-          });
-          sessionStorage.setItem("petconnectta_welcome", "true");
-        }, 1000);
-      }
-    }
-  }, [isAuthenticated, addNotification]);
-
-  // Periodic notifications
-  useEffect(() => {
-    if (!isAuthenticated) return;
-
-    const interval = setInterval(() => {
-      const random = Math.random();
-      if (random < 0.1) {
-        const messages = [
-          {
-            title: "Novo cachorro disponível!",
-            msg: "Um novo amigo acabou de chegar na nossa plataforma.",
-          },
-          {
-            title: "Dica de cuidado",
-            msg: "Cães especiais precisam de atenção redobrada. Saiba mais!",
-          },
-          {
-            title: "ONG próxima de você",
-            msg: "Tem uma ONG parceira na sua cidade. Confira!",
-          },
-        ];
-        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        addNotification(randomMsg.title, randomMsg.msg, "info");
-      }
-    }, 60000); // Check every minute
-
-    return () => clearInterval(interval);
-  }, [isAuthenticated, addNotification]);
-
   const handlePageChange = (page: string) => {
     setCurrentPage(page as Page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const renderPage = () => {
+    const props = { onPageChange: handlePageChange };
     switch (currentPage) {
       case "home":
-        return <HomePage onPageChange={handlePageChange} />;
+        return <HomePage {...props} />;
       case "adoption":
         return <AdoptionPage />;
       case "favorites":
-        return <FavoritesPage onPageChange={handlePageChange} />;
+        return <FavoritesPage {...props} />;
       case "locations":
         return <LocationsPage />;
       case "about":
@@ -116,18 +65,17 @@ function AppContent() {
       case "contact":
         return <ContactPage />;
       default:
-        return <HomePage onPageChange={handlePageChange} />;
+        return <HomePage {...props} />;
     }
   };
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated)
     return (
       <ThemeProvider>
         <AuthPage />
         <Toaster position="top-right" richColors />
       </ThemeProvider>
     );
-  }
 
   return (
     <ThemeProvider>
@@ -138,10 +86,7 @@ function AppContent() {
           notificationCount={unreadCount}
           onOpenNotifications={() => setNotificationsOpen(true)}
         />
-
         <main className="min-h-[calc(100vh-64px)]">{renderPage()}</main>
-
-        {/* Notification Panel */}
         <NotificationPanel
           isOpen={notificationsOpen}
           onClose={() => setNotificationsOpen(false)}
@@ -150,8 +95,6 @@ function AppContent() {
           onRemove={removeNotification}
           onClearAll={clearAll}
         />
-
-        {/* Chatbot */}
         <Chatbot
           isOpen={chatbotOpen}
           messages={messages}
@@ -160,20 +103,16 @@ function AppContent() {
           onSendMessage={sendMessage}
           onClear={clearMessages}
         />
-
-        {/* Toast notifications */}
         <Toaster position="top-right" richColors />
       </div>
     </ThemeProvider>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <AuthProvider>
       <AppContent />
     </AuthProvider>
   );
 }
-
-export default App;
