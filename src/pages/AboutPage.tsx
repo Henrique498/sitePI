@@ -192,6 +192,7 @@ export function AboutPage() {
             { name: "Kawany Barreto", color: "petorange" },
             { name: "Julia Barreto", color: "petpink" },
             { name: "Pedro Arantes", color: "petblue" },
+            { name: "Geovanna Andrade", color: "petred" },
           ].map((member, index) => (
             <Card
               key={index}
