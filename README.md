@@ -1,6 +1,6 @@
 # 🌐 SitePI
 
-Site institucional desenvolvido como **Projeto Integrador** no curso Técnico em Desenvolvimento de Sistemas do **Senac Taboão da Serra**. Construído com uma stack moderna de frontend, com foco em performance e design responsivo.
+Site institucional desenvolvido como **Projeto Integrador (PI) para o curso Técnico em Administração** do **Senac Taboão da Serra**. Construído com uma stack moderna de frontend, com foco em performance e design responsivo.
 
 🔗 **[Ver projeto ao vivo](https://site-pi-iota.vercel.app)**
 
