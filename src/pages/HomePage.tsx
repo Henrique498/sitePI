@@ -13,9 +13,8 @@ import {
 } from "lucide-react";
 import { dogs } from "@/data/dogs";
 
-// 1. Movemos o sorteio para fora do componente.
-// Isso resolve o erro de "impure function" e melhora a performance.
-const featuredDogs = [...dogs].sort(() => 0.5 - Math.random()).slice(0, 4);
+// 1. Pega os primeiros 4 cães em destaque de forma consistente
+const featuredDogs = dogs.slice(0, 4);
 
 interface HomePageProps {
   onPageChange: (page: string) => void;

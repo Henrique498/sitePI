@@ -196,7 +196,7 @@ export const dogs: Dog[] = [
     disabilityType: "Pata traseira amputada",
     ongId: "ong1",
     ongName: "Amigo de Patas",
-    image: "https://images.unsplash.com/photo-1591160674255-fc8b9f79d511?w=800",
+    image: "https://images.unsplash.com/photo-1633722715463-d30628519e77?w=800",
     description:
       "Nina é uma guerreira de três patas! Corre muito e brinca como qualquer outro cachorro. Muito carinhosa!",
     gender: "femea",
