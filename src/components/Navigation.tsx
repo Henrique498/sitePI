@@ -124,9 +124,17 @@ export function Navigation({
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center gap-2 p-2 rounded-full hover:bg-muted transition-colors">
-                    <div className="w-8 h-8 bg-gradient-to-br from-petblue to-petpink rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-white" />
-                    </div>
+                    {user?.photoUrl ? (
+                      <img
+                        src={user.photoUrl}
+                        alt={user.name}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 bg-gradient-to-br from-petblue to-petpink rounded-full flex items-center justify-center">
+                        <User className="w-4 h-4 text-white" />
+                      </div>
+                    )}
                     <span className="text-sm font-medium max-w-[100px] truncate">
                       {user?.name}
                     </span>
@@ -188,9 +196,17 @@ export function Navigation({
 
                   {/* User info - Mobile */}
                   <div className="flex items-center gap-3 p-4 bg-muted rounded-xl mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-petblue to-petpink rounded-full flex items-center justify-center">
-                      <User className="w-6 h-6 text-white" />
-                    </div>
+                    {user?.photoUrl ? (
+                      <img
+                        src={user.photoUrl}
+                        alt={user.name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 bg-gradient-to-br from-petblue to-petpink rounded-full flex items-center justify-center">
+                        <User className="w-6 h-6 text-white" />
+                      </div>
+                    )}
                     <div>
                       <p className="font-semibold">{user?.name}</p>
                       <p className="text-sm text-muted-foreground">

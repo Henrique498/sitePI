@@ -38,6 +38,7 @@ export interface User {
   phone?: string;
   city?: string;
   state?: string;
+  photoUrl?: string;
   favorites: string[];
 }
 

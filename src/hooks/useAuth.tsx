@@ -17,6 +17,7 @@ interface AuthContextType {
     password: string,
     phone?: string,
   ) => Promise<boolean>;
+  loginWithGoogle: (googleData: any) => Promise<boolean>;
   logout: () => void;
   addToFavorites: (dogId: string) => void;
   removeFromFavorites: (dogId: string) => void;
@@ -104,6 +105,66 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("petconnectta_user");
   };
 
+  const loginWithGoogle = async (googleData: any): Promise<boolean> => {
+    try {
+      // Decodifica o JWT token do Google
+      const base64Url = googleData.credential.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      
+      const decodedToken = JSON.parse(jsonPayload);
+      
+      // Extrai dados do Google
+      const { email, name, picture } = decodedToken;
+      
+      // Verifica se o usuário já existe
+      let users: UserWithPassword[] = JSON.parse(
+        localStorage.getItem("petconnectta_users") || "[]",
+      );
+      
+      let foundUser = users.find((u) => u.email === email);
+      
+      if (!foundUser) {
+        // Cria novo usuário com dados do Google
+        foundUser = {
+          id: Date.now().toString(),
+          name,
+          email,
+          photoUrl: picture,
+          favorites: [],
+        };
+        
+        users.push(foundUser);
+        localStorage.setItem("petconnectta_users", JSON.stringify(users));
+      } else if (!foundUser.photoUrl && picture) {
+        // Atualiza foto se o usuário não tinha
+        foundUser.photoUrl = picture;
+        const userIndex = users.findIndex((u) => u.id === foundUser!.id);
+        if (userIndex !== -1) {
+          users[userIndex] = foundUser;
+          localStorage.setItem("petconnectta_users", JSON.stringify(users));
+        }
+      }
+      
+      const userCopy = { ...foundUser };
+      delete userCopy.password;
+      
+      setUser(userCopy as User);
+      setIsAuthenticated(true);
+      localStorage.setItem("petconnectta_user", JSON.stringify(userCopy));
+      
+      return true;
+    } catch (error) {
+      console.error("Erro ao fazer login com Google:", error);
+      return false;
+    }
+  };
+
   const addToFavorites = (dogId: string) => {
     if (!user) return;
 
@@ -153,6 +214,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthenticated,
         login,
         register,
+        loginWithGoogle,
         logout,
         addToFavorites,
         removeFromFavorites,

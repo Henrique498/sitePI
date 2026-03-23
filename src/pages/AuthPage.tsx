@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { GoogleLogin } from "@react-oauth/google";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,7 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart, UserPlus, LogIn, Eye, EyeOff, PawPrint } from "lucide-react";
 
 export function AuthPage() {
-  const { login, register } = useAuth();
+  const { login, register, loginWithGoogle } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +39,18 @@ export function AuthPage() {
     const success = await login(loginEmail, loginPassword);
     if (!success) {
       setError("Email ou senha incorretos");
+    }
+
+    setIsLoading(false);
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    setIsLoading(true);
+    setError("");
+
+    const success = await loginWithGoogle(credentialResponse);
+    if (!success) {
+      setError("Erro ao fazer login com Google");
     }
 
     setIsLoading(false);
@@ -190,6 +203,28 @@ export function AuthPage() {
                   >
                     {isLoading ? "Entrando..." : "Entrar"}
                   </Button>
+
+                  <div className="relative my-6">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-border"></div>
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-white dark:bg-card px-2 text-muted-foreground">
+                        Ou continue com
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center">
+                    <GoogleLogin
+                      onSuccess={handleGoogleSuccess}
+                      onError={() => {
+                        setError("Erro ao fazer login com Google");
+                      }}
+                      theme="outline"
+                      size="large"
+                    />
+                  </div>
                 </form>
               </TabsContent>
 
