@@ -293,33 +293,37 @@ export function HomePage({ onPageChange }: HomePageProps) {
               title: "Encontre",
               description:
                 "Navegue pelos cães disponíveis e encontre seu match perfeito",
-              color: "petpink",
+              bgClass: "bg-petpink/10",
+              iconClass: "text-petpink",
             },
             {
               icon: Heart,
               title: "Selecione",
               description:
                 "Adicione aos favoritos e entre em contato com a ONG",
-              color: "petred",
+              bgClass: "bg-petred/10",
+              iconClass: "text-petred",
             },
             {
               icon: Users,
               title: "Conheça",
               description: "Visite a ONG e passe um tempo com o cachorro",
-              color: "petblue",
+              bgClass: "bg-petblue/10",
+              iconClass: "text-petblue",
             },
             {
               icon: PawPrint,
               title: "Leve para Casa",
               description: "Complete a adoção e comece uma nova vida juntos",
-              color: "petgreen",
+              bgClass: "bg-petgreen/10",
+              iconClass: "text-petgreen",
             },
           ].map((step, index) => (
             <div key={index} className="text-center group">
               <div
-                className={`w-20 h-20 mx-auto mb-4 bg-${step.color}/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}
+                className={`w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform ${step.bgClass}`}
               >
-                <step.icon className={`w-10 h-10 text-${step.color}`} />
+                <step.icon className={`w-10 h-10 ${step.iconClass}`} />
               </div>
               <div className="w-8 h-8 mx-auto mb-4 bg-petpink text-white rounded-full flex items-center justify-center font-bold">
                 {index + 1}
