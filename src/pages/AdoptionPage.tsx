@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { DogCard } from "@/components/DogCard";
 import { FilterSidebar } from "@/components/FilterSidebar";
 import { DogDetailsModal } from "@/components/DogDetailsModal";
@@ -24,6 +24,7 @@ export function AdoptionPage() {
   const [selectedDog, setSelectedDog] = useState<Dog | null>(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [openContactAfterDetails, setOpenContactAfterDetails] = useState(false);
 
   const filteredDogs = useMemo(() => {
     return dogs.filter((dog) => {
@@ -123,6 +124,13 @@ export function AdoptionPage() {
     filters.size !== "all" ||
     filters.gender !== "all" ||
     searchQuery !== "";
+
+  useEffect(() => {
+    if (!showDetailsModal && openContactAfterDetails) {
+      setShowContactModal(true);
+      setOpenContactAfterDetails(false);
+    }
+  }, [showDetailsModal, openContactAfterDetails]);
 
   return (
     <>
@@ -270,7 +278,7 @@ export function AdoptionPage() {
         onOpenChange={setShowDetailsModal}
         onAdoptClick={() => {
           setShowDetailsModal(false);
-          setShowContactModal(true);
+          setOpenContactAfterDetails(true);
         }}
       />
       <DogContactModal

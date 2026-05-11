@@ -136,7 +136,7 @@ export function HomePage({ onPageChange }: HomePageProps) {
                 </div>
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl">
                   <img
-                    src="http://zukapets.com/cdn/shop/articles/cachorro.jpg?v=1715951227"
+                    src="https://zukapets.com/cdn/shop/articles/cachorro.jpg?v=1715951227"
                     alt="Cachorro para adoção"
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                   />
